@@ -86,17 +86,6 @@ function getCookie(name) {
   if (parts.length === 2) return parts.pop().split(';').shift();
 }
 
-const inputContainer = document.querySelector('.input-container');
-const popover = document.querySelector('.popover');
-
-inputContainer.addEventListener('mouseenter', () => {
-  popover.style.display = 'block';
-});
-
-inputContainer.addEventListener('mouseleave', () => {
-  popover.style.display = 'none';
-});
-
 
 let dataStatus = false;
 
@@ -111,7 +100,7 @@ async function checkData() {
       const response = await fetch('http://localhost:3000/codigo', {
         method: 'POST',
         headers: {
-          'Content-Type': 'application/json'
+          'Content-Type': 'application/json',
         },
         body: JSON.stringify({ codigoLote })
       });
@@ -132,6 +121,44 @@ async function checkData() {
     }
   });
 }
+
+
+
+
+async function checkEmail() {
+  const emailInput = document.querySelector("#email");
+  const codigoLoteInput = document.getElementById("codigoLote");
+  const telefonoInput = document.querySelector("#telefono");
+
+  emailInput.addEventListener("input", async function() {
+    const email = this.value;
+    try {
+      const response = await fetch('http://localhost:3000/email', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({ email })
+      });
+      
+      const data = await response.json();
+
+      if (data) {
+        codigoLoteInput.disabled = true;
+        telefonoInput.disabled = true;
+      } else {
+        codigoLoteInput.disabled = false;
+        telefonoInput.disabled = false;
+      } 
+    } catch (error) {
+      console.error(error);
+    }
+  });
+}
+
+checkEmail()
+
+
 
 function checkInputs() {
   const btnEnvio = document.querySelector(".btnEnvio");
@@ -200,4 +227,18 @@ botonAceptarCookies.addEventListener('click', () => {
 });
 
 
+
+const btnPopup = document.getElementById('btnPopup');
+const popup = document.getElementById('popup2');
+const btnCerrar = document.getElementById('btnCerrar');
+
+btnPopup.addEventListener('click', function(event) {
+  event.preventDefault();
+  popup.classList.add('PopupDis');
+});
+
+btnCerrar.addEventListener('click', function() {
+  event.preventDefault();
+  popup.classList.remove('PopupDis');
+});
 

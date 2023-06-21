@@ -9,14 +9,18 @@ require('dotenv').config();
 
 const secreto = process.env.SECRET
 app.use(express.json());
-const corsOptions = {
-  origin: 'http://127.0.0.1:5501',
-  credentials: true,
-};
-app.use(cors(corsOptions));
+// const corsOptions = {
+//   origin: 'http://127.0.0.1:5501/',
+//   credentials: true,
+// };
+app.use(cors());
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(cookieParser(process.env.COOKIE))
-
+app.use(function(req, res, next) {
+  res.header("Access-Control-Allow-Origin", "*");
+  res.header("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept");
+  next();
+});
 
 //------------FUNCTIONS-----------------//
 
@@ -72,14 +76,15 @@ app.post("/encuesta", (req, res) => {
   const dataUser = {
     nombre, email, codigoLote, telefono, check
   };
-console.log(dataUser.codigoLote)
+
 
   const data = fs.readFileSync("./datos.txt", "utf8");
-  const codigos = fs.readFileSync("./codigos.txt", "utf8");
-  const codigosArray = JSON.parse(codigos);
-  const index = codigosArray.indexOf(codigoLote);
-  codigosArray.splice(index, 1);
-  fs.writeFileSync("./codigos.txt", JSON.stringify(codigosArray));
+
+  // const codigos = fs.readFileSync("./codigos.txt", "utf8");
+  // const codigosArray = JSON.parse(codigos);
+  // const index = codigosArray.indexOf(codigoLote);
+  // codigosArray.splice(index, 1);
+  // fs.writeFileSync("./codigos.txt", JSON.stringify(codigosArray));
 
   let dataArray = [];
 
@@ -111,6 +116,21 @@ app.post("/codigo", (req, res) => {
     res.json(false);
   }
 });
+
+app.post("/email", (req, res) => {
+  const { email } = req.body;
+
+  const datos = fs.readFileSync("./datos.txt", "utf8");
+  const dataEmail = JSON.parse(datos);
+
+  const emailRegistrado = dataEmail.some((item) => item.email === email);
+  if (emailRegistrado) {
+    res.json(true);
+  } else {
+    res.json(false);
+  }
+});
+
 
 
 app.listen(3000, () => {

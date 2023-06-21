@@ -76,24 +76,30 @@
             <label>Codigo de Lote</label>
             <div class="d-flex">
 
-              <div class="cointainer-fluid help d-flex">
+              <div class="cointainer help d-flex">
                 <input class="inputCod" type="text" placeholder="Codigo de lote"
                   aria-label=".form-control-lg example" for="codigoLote" name="codigoLote" id="codigoLote"
                   required>
                   <div class="align-middle divhelp d-flex  input-container">
-                    <img src="./assets//help.png" alt="" class="imghelp">
+
+
+
+                    <button id="btnPopup"><img src="./assets//help.png" alt="" class="imghelp"></button>
+
+                    <div id="popup2" class="popup2">
+                      <div class="popup-content">
+                        <img src="./assets/ejemplo.png" alt="Imagen del popover" class="imgPop">
+                        <button id="btnCerrar"><img src="./assets/cancelar.png" class="imgCerrar"></button>
+                      </div>
+                    </div>
+                    
+
+
+                    </div>
                   </div>
                </div>
-
-
-
               <img class="imgCheck imgCheckDis" src="./assets/Group 2.png" alt="">
-
               <img class="imgError imgErrorDis" src="./assets/error.png" alt="">
-              <div class="popover">
-                <img src="./assets/ejemplo.png" alt="Imagen del popover" class="imgPop">
-              </div>
-            </div>
           </div>
 
 
@@ -106,6 +112,11 @@
                 name="telefono" id="telefono" required>
             </div>
           </div>
+
+
+
+
+
           <div class="form-check mt-3">
             <label class="form-check-label d-flex" for="flexCheckChecked" required>
               <input class="check" type="checkbox" value="ElUsuarioAceptolosTyC" id="flexCheckChecked" required>
@@ -115,8 +126,14 @@
           <button class="btnEnvio btnEnvioDis" id="btnPosData" onclick="postData()" disabled>PARTICIPAR</button>
         </form>
 
-
+ 
       </div>
+
+
+
+
+
+
 
       <div class="col-12 text-center mt-4">
         <p class="textFooter">
@@ -131,6 +148,9 @@
 
   </div>
 
+
+
+
   <div class="aviso-cookies" id="aviso-cookies">
     <h3 class="titulo">Cookies</h3>
     <p class="parrafo">Utilizamos cookies propias y de terceros para mejorar nuestros servicios.</p>
@@ -140,6 +160,9 @@
   <div class="fondo-aviso-cookies" id="fondo-aviso-cookies"></div>
 
 
+
+
+
 <style>
 
   @media only screen and (min-width: 2700px) {
@@ -147,6 +170,9 @@
       margin-left: -30rem !important;
  
     }
+
+ 
+
   }
 
   @media only screen and (min-width: 2600px) {
@@ -183,6 +209,15 @@
     }
   }
 
+  @media only screen and (min-width: 1400px) {
+       .imgCheck{
+      transform: translateX(800%) translateY(-4rem);
+    }
+    .imgError{
+      transform: translateX(800%) translateY(-4rem);
+    }
+  }
+
   @media only screen and (max-width: 576px) {
     .popover{
       margin-left: -5rem !important;
@@ -195,7 +230,22 @@
       width: 3.5rem !important;
       height: 3.5rem !important;
     }
+    .imgCheck{
+      transform: translateX(500%) translateY(-4rem);
+    }
+    .imgError{
+      transform: translateX(500%) translateY(-4rem);
+    }
   }
+  @media only screen and (min-width: 500px) {
+    .imgCheck{
+   transform: translateX(700%) translateY(-4rem);
+ }
+ .imgError{
+  transform: translateX(700%) translateY(-4rem);
+}
+}
+
 
 </style>
 
